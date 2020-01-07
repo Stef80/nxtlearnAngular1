@@ -1,0 +1,136 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/']">NXT-LEARN</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="!isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" (click)="isCollapsed=!isCollapsed">
+        <a class="nav-link" [routerLink]="['/']">Home</a>
+      </li>
+
+
+      <li class="nav-item" 
+      *nxtIsGranted="let tmp permesso p.ReadMyGuide loggato authService.isLogged()">
+          <a class="nav-link" [routerLink]="['/guide','iscrizioni']">Le mie guide</a>
+      </li>
+
+<!--
+      <li class="nav-item" *nxtIsGranted="let tmp permesso p.ReadGuida loggato authService.isLogged()">
+        <a class="nav-link" [routerLink]="['/guida','1']">TEST DIRETTIVA</a>
+      </li>
+    -->
+
+<!-- 
+      <li class="nav-item" *ngIf="authService.isLogged()">
+        <a class="nav-link" [routerLink]="['/guida','1']">TEST GUIDA 1</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isLogged()">
+          <a class="nav-link" [routerLink]="['/guida','100']">TEST GUIDA 100</a>
+        </li>
+-->
+
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/guide']">Guide</a>
+      </li>
+
+      
+
+
+
+      <li class="nav-item dropdown" *ngIf="authService.isLogged() && authService.getRoleAuth()==='ADMIN'">
+        <a style="cursor: pointer" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="menuGuida = !menuGuida">
+          Guida
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngbCollapse]="!menuGuida">
+          
+            <a class="dropdown-item" [routerLink]="['/guide']">Tutte le guide</a>
+          
+          <a class="dropdown-item" [routerLink]="['/guida/add']" 
+          *nxtIsGranted="let tmp permesso p.AddGuida loggato authService.isLogged()"
+          >Nuova guida</a>
+
+
+         
+
+          <a class="dropdown-item" 
+          [routerLink]="['/guida/addbyurl']" *nxtIsGranted="let tmp permesso p.AddGuida loggato authService.isLogged()"    
+          >Nuova guida da url</a>
+
+          <a class="dropdown-item" [routerLink]="['/guida/newlezione']" 
+          *nxtIsGranted="let tmp permesso p.AddLezione loggato authService.isLogged()"
+          >Nuova Lezione</a>
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/guida/remove']" *nxtIsGranted="let tmp permesso p.DeleteGuida loggato authService.isLogged()" >Cancella guida</a>
+        </div>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input 
+      class="form-control mr-sm-2" 
+      name="txtSearch" type="search" 
+      placeholder="Cerca..." 
+      aria-label="Cerca"
+      required [(ngModel)]="txtSearch"
+      (keydown.enter)="onKeydown($event)"  
+      >
+      <button 
+        class="btn btn-outline-success my-2 my-sm-0" 
+        type="submit" 
+        routerLink="/guida/search/{{txtSearch}}">
+        CERCA
+      </button>      
+    </form>
+
+
+    <ul *ngIf="!authService.isLogged()" class="navbar-nav ">
+      <li class="nav-item" *ngIf="!authService.isLogged()">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+    <ul class="navbar-nav" *ngIf="authService.isLogged()">
+      <li class="nav-item dropdown" ngbDropdown display="dynamic" aplacement="bottom-right">
+        <a style="cursor: pointer" class="nav-link dropdown-toggle" id="navbarDropdownLogin" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+          Ciao {{authService.data.nome}}!
+          <span class="fa fa-user-circle"></span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin" ngbDropdownMenu>
+
+
+
+          <a class="dropdown-item" [routerLink]="['/settings/user']" *ngIf="authService.isLogged()">Impostazioni utente</a>
+
+
+
+          <a class="dropdown-item" [routerLink]="['/settings/users']" 
+          *nxtIsGranted="let tmp permesso p.ImpostazioniUtenti loggato authService.isLogged()"
+          >Gestione utenti</a>
+
+
+
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink] *ngIf="authService.isLogged()" (click)="authService.logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</nav>

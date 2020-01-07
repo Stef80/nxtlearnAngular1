@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/*@import 'custombootstrap.scss';*/
+/*
+@import '../node_modules/bootstrap/scss/bootstrap';
+*/
+
+
+
+$theme-colors: (
+    "primary": #007B5E,
+    "secondary": #02bceb,
+    "info":rgb(255, 243, 224)
+);
+
+/* using Sass */
+@import "~bootstrap/scss/bootstrap";
+
+
+
+
+
+/*
+body {    
+    --primary: #007B5E;
+}
+*/
+h1{
+    text-transform: uppercase;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    _color: #007B5E;
+}
+
+.bold {font-weight: bold;}
+
+/*
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #108D6F;
+    border-color: #108D6F;
+    box-shadow: none;
+    outline: none;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007B5E;
+    border-color: #007B5E;
+}
+
+.btn-primary a {color:#FFF;}
+*/
+
+* {
+    outline: none;
+}
+
+section .section-title {
+    padding: 60px 0;
+}
+
+a:hover {text-decoration: none;}
+
+
+
+/*
+####################################################
+M E D I A  Q U E R I E S
+####################################################
+*/
+ 
+/*
+::::::::::::::::::::::::::::::::::::::::::::::::::::
+Bootstrap 4 breakpoints
+*/
+ 
+/* 
+Extra small devices (portrait phones, less than 576px) 
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+/*DEFAULT*/ 
+/*
+    _propertyName makes the browser to ignore this property 
+*/
+body {
+    _background: violet;
+}
+/*CUSTOM BY SIZE*/ 
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  
+ body {
+     _background: lime;
+ }
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+    body {
+        _background: yellow;
+    }
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    body {
+        _background: red;
+    }
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    body {
+        _background: blue;
+    }
+    
+}

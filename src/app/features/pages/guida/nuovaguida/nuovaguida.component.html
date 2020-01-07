@@ -1,0 +1,42 @@
+<div style="min-height:calc(100vh - 58px);"
+  class=" d-flex m-auto col-sm-8 col-md-6 col-lg-4 justify-content-center flex-column align-items-center">
+  <div class="container-fluid bg-white py-4 shadow-lg rounded"
+  id="container-register">
+    <div class="row">
+      <div class="col" id="titolo">
+        <h1>CREA UNA GUIDA</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="registration">
+          <form method="post" #f="ngForm" (submit)="doCreate(f)" id="CreaGuidaForm">
+            <p>Inserisci nome:</p>
+            <div class="form-group">
+              <input type="text" name="nome"  class="form-control" [ngModel]="guida.nome" required>
+            </div>
+            <p>Inserisci descrizione:</p>
+            <div class="form-group">
+              <textarea class="form-control" name="descrizione" rows="5" [ngModel] = "guida.descrizione" required></textarea>
+            </div>
+            <p>Inserisci imagePath:</p>
+            <div class="form-group">
+              <input type="text" name="imagePath"  placeholder="imagePath" class="form-control"[ngModel]="guida.image" >
+            </div>
+            <div>
+            <p>Livello guida</p>
+            <select name="livello" [ngModel]="livello">
+              <option *ngFor="let liv of livelli" value={{liv.id}}>{{liv.descrizione}}</option>
+              </select>
+              </div>
+              <br>
+            <div class="text-center">
+              <button type="submit" id="submitCreaGuidaForm" class="btn btn-primary btn-lg" [disabled]="f.invalid"><span
+                  class="text-bold">CREA GUIDA</span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

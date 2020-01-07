@@ -1,0 +1,98 @@
+<div class="container mt-4">
+<div class="row">
+<div class="col">
+
+
+    <div *ngIf="guida">
+        <h1 class="nomeGuida">{{guida.nome}}</h1>
+        <p class="descrizioneGuida">{{guida.descrizione}}</p>
+        <p class="text-muted"> Livello: {{guida.livello?.descrizione}}</p>
+
+        <div *ngIf="authService.isLogged() && !iscritto" class="text-center my-4">
+          <button type="button" class="btn btn-primary" (click)="iscriviti(guida.id)" >ISCRIVITI</button>
+        </div>
+
+        
+        <div *ngIf="authService.isLogged() && iscritto && router.url.startsWith('/guide')" class="text-center my-4">
+            <button type="button" class="btn btn-primary" routerLink="/guida/{{guida.id}}"  >VAI ALLA GUIDA</button>
+          </div>
+
+        <div class="box-capitoli" *ngIf="guida.capitoli.length>0">
+          <h3 class="mb-4">Capitoli</h3>
+          <!-- 
+            <ngb-accordion 
+            #myaccordionvar="ngbAccordion" 
+            closeOthers="true" 
+            type="'success'"
+            (panelChange)="beforeChange($event)"
+            >
+              <ngb-panel *ngFor="let capitolo of guida.capitoli"  >               
+                  <ng-template ngbPanelTitle >
+                    <div [ngStyle]="{'display':'block','width':'100%', 'background':'red'}"> 
+                      <h4>{{capitolo.nome}}</h4>
+                    </div>
+                  </ng-template>
+                
+                <ng-template ngbPanelContent >                  
+                  <div *ngFor="let lezione of capitolo.lezioni">
+                    <ul class="indice--capitolo">
+                      <li routerLink="/guida/{{guida.id}}/capitolo/{{capitolo.id}}/lezione/{{lezione.id}}" >
+                        {{lezione.titolo}}
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+            -->
+
+            <div class="accordion">
+            <div *ngFor="let capitolo of guida.capitoli;let i= index" class="accordion--header" >
+              <div class="accordion--header--title">
+              <h4 (click)="isCollapsed[i] = !isCollapsed[i]" class="pull-left" >
+                <i
+                *ngIf="!isCollapsed[i]"
+                class="fa fa-arrow-circle-right" 
+                aria-hidden="true"></i>
+                <i 
+                *ngIf="isCollapsed[i]"
+                class="fa fa-arrow-circle-down" 
+                aria-hidden="true"></i>
+                {{capitolo.nome}}
+              </h4>
+              <span *nxtIsGranted="let tmp permesso p.AddCapitolo loggato authService.isLogged()" class="pull-right">
+                  <button class="btn btn-success  " *nxtIsGranted="let tmp permesso p.AddLezione loggato authService.isLogged()" >ADD LEZIONE</button>
+              </span>
+              <div class="clearfix"></div>
+
+              </div>
+
+            <ul class="indice--capitolo--content accordion--content my-0" >
+              <li *ngFor="let lezione of capitolo.lezioni" class="indice--capitolo--lezione text-primary py-3 pl-4" routerLink="/guida/{{guida.id}}/capitolo/{{capitolo.id}}/lezione/{{lezione.id}}" [ngbCollapse]="!isCollapsed[i]"
+              >{{lezione.titolo}}</li>              
+            </ul>
+        </div>
+      </div>
+
+
+
+        </div>
+      </div>
+
+
+
+      <div class="my-4 py-4 bg-info border border-primary text-center" 
+      *nxtIsGranted="let tmp permesso p.HandleGuida loggato authService.isLogged()">
+
+      
+      <span *nxtIsGranted="let tmp permesso p.AddCapitolo loggato authService.isLogged()">
+        <button class="btn btn-success" [routerLink]="['/guida/newlezione']" [queryParams]="guida"  >ADD CAPITOLO</button>      
+      </span>
+      <div class="clearfix"></div>
+    </div>
+
+      
+</div>
+</div>
+</div>
+
